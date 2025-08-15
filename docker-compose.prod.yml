@@ -1,0 +1,26 @@
+services:
+  web:
+    # imagine implicită de prod; poți suprascrie cu WEB_IMAGE
+    image: ${WEB_IMAGE:-ghcr.io/${GH_OWNER:-dlungu-byte}/ilegal-platform-web:latest}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/robots.txt >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+  caddy:
+    restart: unless-stopped
+    environment:
+      - DOMAIN_DOCS=${DOMAIN_DOCS:-docs.ilegal.ro}
+    depends_on:
+      web:
+        condition: service_healthy
+    healthcheck:
+      # verifică prin Host header (site-ul configurat în Caddyfile)
+      test: ["CMD-SHELL", "wget -q --spider --header=\"Host: ${DOMAIN_DOCS:-docs.ilegal.ro}\" http://localhost/robots.txt >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
