@@ -1,0 +1,8 @@
+{
+  email admin@ilegal.ro
+}
+
+{$DOMAIN_DOCS} {
+  encode zstd gzip
+  reverse_proxy web:3000
+}

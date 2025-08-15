@@ -1,0 +1,21 @@
+services:
+  caddy:
+    image: caddy:2.8-alpine
+    restart: unless-stopped
+    ports: ["80:80","443:443"]
+    environment:
+      - DOMAIN_DOCS=${DOMAIN_DOCS}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [web]
+  web:
+    build: ./apps/web
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    expose: ["3000"]
+volumes:
+  caddy-data:
+  caddy-config:

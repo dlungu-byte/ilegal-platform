@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --border:#e5e7eb; --muted:#6b7280; }
+.container { @apply max-w-6xl mx-auto px-4; }
+.btn { @apply inline-flex items-center rounded-lg border px-3 py-2 text-sm; }
+.nav-a { @apply px-3 py-2 rounded-lg border hover:bg-gray-50; }
+.card { @apply border rounded-xl p-4 bg-white; }

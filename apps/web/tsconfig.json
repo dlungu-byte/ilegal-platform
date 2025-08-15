@@ -1,0 +1,2 @@
+{ "compilerOptions": { "jsx":"preserve", "target":"ES2017", "module":"ESNext", "strict":false,
+  "baseUrl":"." }, "include":["app/**/*","next-env.d.ts"] }
