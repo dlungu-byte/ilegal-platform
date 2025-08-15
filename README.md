@@ -28,3 +28,6 @@ Comandă de dev pornește totul cu Docker: docker compose up -d --build
 - Next.js 15 (App Router), TypeScript
 - Caddy (reverse proxy)
 - Docker Compose
+
+Status: ![web-ci](https://github.com/dlungu-byte/ilegal-platform/actions/workflows/ci.yml/badge.svg?branch=main)
+
