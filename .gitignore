@@ -1,0 +1,22 @@
+# Node/Next
+node_modules/
+.next/
+apps/**/.next/
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Env & tool caches
+.env
+.env.*
+!.env.example
+.vercel/
+.turbo/
+.vscode/
+.DS_Store
+
+# Docker artefacts (dacă ai)
+**/data/
