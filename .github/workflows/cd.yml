@@ -1,0 +1,27 @@
+name: deploy-prod
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish.yml
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            export DOMAIN_DOCS=docs.ilegal.ro
+            export WEB_IMAGE=ghcr.io/${{ github.repository_owner }}/ilegal-platform-web:latest
+            # dacă pachetul e privat, deblochează următoarele 2 linii:
+            # export GHCR_USER=${{ github.repository_owner }}
+            # export GHCR_TOKEN=${{ secrets.GHCR_TOKEN }}
+            cd ~/ilegal-platform && ./scripts/deploy-prod.sh
